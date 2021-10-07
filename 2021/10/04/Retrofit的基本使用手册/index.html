@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Retrofit的基本使用手册 | Like a gust of wind</title><meta name="keywords" content="Android开发"><meta name="author" content="Chen"><meta name="copyright" content="Chen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Retrofit使用手册😸Retrofit简介A type-safe HTTP client for Android and Java。封装了OkHttp，也是由square公司开发的一个处理网络请求的开源项目。 Retrofit基础使用方法跟OkHttp一样先将依赖包添加到build.gradle里面，这里有一点需要注意，因为retrofit封装了OkHttp所以我们将retrofit依赖包添">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit的基本使用手册">
+<meta property="og:url" content="https://nomadjoe1122.github.io/2021/10/04/Retrofit%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="Like a gust of wind">
+<meta property="og:description" content="Retrofit使用手册😸Retrofit简介A type-safe HTTP client for Android and Java。封装了OkHttp，也是由square公司开发的一个处理网络请求的开源项目。 Retrofit基础使用方法跟OkHttp一样先将依赖包添加到build.gradle里面，这里有一点需要注意，因为retrofit封装了OkHttp所以我们将retrofit依赖包添">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/wallhaven-nzwl5j.jpg">
+<meta property="article:published_time" content="2021-10-04T08:54:24.000Z">
+<meta property="article:modified_time" content="2021-10-07T08:31:00.702Z">
+<meta property="article:author" content="Chen">
+<meta property="article:tag" content="Android开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/wallhaven-nzwl5j.jpg"><link rel="shortcut icon" href="/img/wallhaven-4dl1m3.jpg"><link rel="canonical" href="https://nomadjoe1122.github.io/2021/10/04/Retrofit%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Chen","link":"链接: ","source":"来源: Like a gust of wind","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Retrofit的基本使用手册',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-07 16:31:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/wallhaven-4dl1m3.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fas fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/wallhaven-nzwl5j.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Like a gust of wind</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about"><i class="fa-fw fas fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Retrofit的基本使用手册</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-04T08:54:24.000Z" title="发表于 2021-10-04 16:54:24">2021-10-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-07T08:31:00.702Z" title="更新于 2021-10-07 16:31:00">2021-10-07</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Retrofit的基本使用手册"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Retrofit使用手册😸"><a href="#Retrofit使用手册😸" class="headerlink" title="Retrofit使用手册😸"></a>Retrofit使用手册😸</h2><h3 id="Retrofit简介"><a href="#Retrofit简介" class="headerlink" title="Retrofit简介"></a>Retrofit简介</h3><p>A type-safe HTTP client for Android and Java。封装了OkHttp，也是由square公司开发的一个处理网络请求的开源项目。</p>
+<h3 id="Retrofit基础使用方法"><a href="#Retrofit基础使用方法" class="headerlink" title="Retrofit基础使用方法"></a>Retrofit基础使用方法</h3><p>跟OkHttp一样先将依赖包添加到build.gradle里面，这里有一点需要注意，因为retrofit封装了OkHttp所以我们将retrofit依赖包添加到AS中OkHttp的依赖包也会被一起添加到AS中，Retrofit的依赖包如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies&#123;</span><br><span class="line">	implementation <span class="string">&#x27;com.squareup.retrofit2:retrofit:2.9.0&#x27;</span></span><br><span class="line">		...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>我们需要先根据接口创建Java接口：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/image-20211005102511887.png"></p>
+<p>如下根据接口要求我们的接口需要向服务器提交username，password，我们在AS中用retrofit的方法实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HttpbinService</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@POST(&quot;post&quot;)</span> <span class="comment">//post 注解 括号内代表我们要请求的接口类型，表明这个方法会用post方法请求</span></span><br><span class="line">	<span class="meta">@FormUrlEncoded</span> <span class="comment">//注解 post 提交方式</span></span><br><span class="line">    <span class="comment">//post 方法</span></span><br><span class="line">	<span class="function">Call&lt;ResponseBody&gt; <span class="title">post</span><span class="params">(<span class="meta">@Field(&quot;user&quot;)</span> String username,<span class="meta">@Field(&quot;passwd&quot;)</span> String pwd)</span></span>; <span class="comment">//@Field 注解 括号内容表示我们提交参数的名字</span></span><br><span class="line">	</span><br><span class="line">	<span class="meta">@GET(&quot;get&quot;)</span></span><br><span class="line">    <span class="comment">//get 方法</span></span><br><span class="line">	<span class="function">Call&lt;ResponseBody&gt; <span class="title">get</span><span class="params">(<span class="meta">@Query(&quot;user&quot;)</span> String username,<span class="meta">@Query(&quot;passwd&quot;)</span> String pwd)</span></span>; <span class="comment">//一般get请求我们用 @Query 注解 而post请求用 @Field</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：我们补全代码自动导包时我们需要注意retrofit包和okhttp包，不要导错包</p>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>创建Retrofit对象，并生成接口实现类对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">retrofit = <span class="keyword">new</span> Retrofit.Builder().baseUrl(<span class="string">&quot;https://www.httpbin.org/&quot;</span>).build();</span><br><span class="line">httpbinService = retrofit.create(HttpbinService.class);</span><br></pre></td></tr></table></figure>
+
+<p>这里我将Retrofit对象和HttpbinService都设定为全局变量，方便后续使用</p>
+<p>随后我们需要生成对应的方法来实现Retrofit，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">retrofit2.Call&lt;ResponseBody&gt; call = httpbinService.post(<span class="string">&quot;abc&quot;</span>,<span class="string">&quot;123456&quot;</span>); <span class="comment">//括号内为先前创建的接口里面的user值和passwd值</span></span><br><span class="line">call.enqueue(<span class="keyword">new</span> Callback&lt;ResponseBody&gt;()&#123;</span><br><span class="line"> 			<span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Log.i(<span class="string">&quot;abc&quot;</span>, <span class="string">&quot;onResponse: &quot;</span>+ response.body().string());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call&lt;ResponseBody&gt; call, Throwable t)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们直观对比一下okhttp和retrofit的代码量</p>
+<p>OkHttp：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/image-20211005110041943.png"></p>
+<p>Retrofit：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/image-20211005105829719.png"></p>
+<p>明显Retrofit的代码量较少，但这是不包含接口的，我们okhttp的提交内容是在方法里直接写出，而retrofit是在接口里面写出</p>
+<p>那么这样有什么好处？接口的方式便于我们管理代码，会使单码简洁方便后续的调试，其次如果我们有很多的登录请求要完成用okhttp的话我们每个请求就需要写一次表单，但用接口的话我们只需要一个，这样代码量大幅度减少。</p>
+<h3 id="Retrofit中的注解"><a href="#Retrofit中的注解" class="headerlink" title="Retrofit中的注解"></a>Retrofit中的注解</h3><p>Retrofit的注解：</p>
+<ul>
+<li>方法注解：@GET,    @POST,    @PUT,    @DELETE,    @PATH,    @HEAD,    @OPTIONS,    @HTTP</li>
+<li>标记注解：@FormUrlEncoded,    @Multipart,    @Streaming</li>
+<li>参数注解：@Query,    @QueryMap,    @Body,    @Field,    @FieldMap,    @Part,    @PartMap</li>
+<li>其他注解：@Path,    @Header,    @Headers,    @Url</li>
+</ul>
+<p>方法注解就是我们的请求方式，像GET请求和POST请求</p>
+<p>标记注解就是我们提交下载有关的注解 </p>
+<p>参数注解顾名思义就是我们设置参数时要用到的注解</p>
+<h4 id="各各注解的含义如下"><a href="#各各注解的含义如下" class="headerlink" title="各各注解的含义如下"></a>各各注解的含义如下</h4><h5 id="1-1-Body注解"><a href="#1-1-Body注解" class="headerlink" title="1.1 Body注解:"></a>1.1 Body注解:</h5><ul>
+<li>作用于方法的参数</li>
+<li>使用该注解定义的参数不可为null</li>
+<li>当你发送一个post或put请求,但是又不想作为请求参数或表单的方式发送请求时,使用该注解定义的参数可以直接传入一个实体类,retrofit会通过convert把该实体序列化并将序列化后的结果直接作为请求体发送出去.</li>
+</ul>
+<hr>
+<h5 id="1-2-DELETE注解"><a href="#1-2-DELETE注解" class="headerlink" title="1.2 DELETE注解:"></a>1.2 DELETE注解:</h5><ul>
+<li>用于发送一个DELETE请求</li>
+<li>DELETE注解一般必须添加相对路径或绝对路径或者全路径,如果不想在DELETE注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="1-3-Field注解"><a href="#1-3-Field注解" class="headerlink" title="1.3 Field注解:"></a>1.3 Field注解:</h5><ul>
+<li><p>作用于方法的参数</p>
+</li>
+<li><p>用于发送一个表单请求</p>
+</li>
+<li><p>用String.valueOf()把参数值转换为String,然后进行URL编码,当参数值为null值时,会自动忽略,如果传入的是一个List或array,则为每一个非空的item拼接一个键值对,每一个键值对中的键是相同的,值就是非空item的值,如: name=张三&amp;name=李四&amp;name=王五,另外,如果item的值有空格,在拼接时会自动忽略,例如某个item的值为:张 三,则拼接后为name=张三.</p>
+</li>
+</ul>
+<hr>
+<h5 id="1-4-FieldMap注解"><a href="#1-4-FieldMap注解" class="headerlink" title="1.4 FieldMap注解:"></a>1.4 FieldMap注解:</h5><ul>
+<li>作用于方法的参数</li>
+<li>用于发送一个表单请求</li>
+<li>map中每一项的键和值都不能为空,否则抛出IllegalArgumentException异常</li>
+</ul>
+<hr>
+<h5 id="1-5-FormUrlEncoded注解"><a href="#1-5-FormUrlEncoded注解" class="headerlink" title="1.5 FormUrlEncoded注解:"></a>1.5 FormUrlEncoded注解:</h5><ul>
+<li>用于修饰Field注解和FieldMap注解</li>
+<li>使用该注解,表示请求正文将使用表单网址编码。字段应该声明为参数，并用@Field注释或FieldMap注释。使用FormUrlEncoded注解的请求将具”application / x-www-form-urlencoded” MIME类型。字段名称和值将先进行UTF-8进行编码,再根据RFC-3986进行URI编码.</li>
+</ul>
+<h5 id="1-6-GET注解"><a href="#1-6-GET注解" class="headerlink" title="1.6 GET注解"></a>1.6 GET注解</h5><ul>
+<li>用于发送一个get请求</li>
+<li>GET注解一般必须添加相对路径或绝对路径或者全路径,如果不想在GET注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="1-7-HEAD注解"><a href="#1-7-HEAD注解" class="headerlink" title="1.7 HEAD注解"></a>1.7 HEAD注解</h5><ul>
+<li>用于发送一个HEAD请求</li>
+<li>HEAD注解一般必须添加相对路径或绝对路径或者全路径,如果不想在HEAD注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="1-8-Header注解"><a href="#1-8-Header注解" class="headerlink" title="1.8 Header注解:"></a>1.8 Header注解:</h5><ul>
+<li>作用于方法的参数,用于添加请求头</li>
+<li>使用该注解定义的请求头可以为空,当为空时,会自动忽略,当传入一个List或array时,为拼接每个非空的item的值到请求头中.</li>
+<li>具有相同名称的请求头不会相互覆盖,而是会照样添加到请求头中</li>
+</ul>
+<hr>
+<h5 id="1-9-HeaderMap注解"><a href="#1-9-HeaderMap注解" class="headerlink" title="1.9 HeaderMap注解:"></a>1.9 HeaderMap注解:</h5><ul>
+<li>作用于方法的参数,用于添加请求头</li>
+<li>以map的方式添加多个请求头,map中的key为请求头的名称,value为请求头的值,且value使用String.valueOf()统一转换为String类型,</li>
+<li>map中每一项的键和值都不能为空,否则抛出IllegalArgumentException异常</li>
+</ul>
+<hr>
+<h5 id="2-0-Headers注解"><a href="#2-0-Headers注解" class="headerlink" title="2.0 Headers注解:"></a>2.0 Headers注解:</h5><ul>
+<li>作用于方法,用于添加一个或多个请求头</li>
+<li>具有相同名称的请求头不会相互覆盖,而是会照样添加到请求头中</li>
+</ul>
+<hr>
+<h5 id="2-1-HTTP注解"><a href="#2-1-HTTP注解" class="headerlink" title="2.1 HTTP注解:"></a>2.1 HTTP注解:</h5><ul>
+<li>作用于方法,用于发送一个自定义的HTTP请求</li>
+</ul>
+<hr>
+<h5 id="2-2-Multipart注解"><a href="#2-2-Multipart注解" class="headerlink" title="2.2 Multipart注解:"></a>2.2 Multipart注解:</h5><ul>
+<li>作用于方法</li>
+<li>使用该注解,表示请求体是多部分的。 每一部分作为一个参数,且用Part注解声明</li>
+</ul>
+<hr>
+<h5 id="2-3-Part注解"><a href="#2-3-Part注解" class="headerlink" title="2.3 Part注解:"></a>2.3 Part注解:</h5><ul>
+<li>作用于方法的参数,用于定义Multipart请求的每个part</li>
+<li>使用该注解定义的参数,参数值可以为空,为空时,则忽略</li>
+<li>使用该注解定义的参数类型有以下3种方式可选:<br>1, 如果类型是okhttp3.MultipartBody.Part，内容将被直接使用。 省略part中的名称,即 @Part MultipartBody.Part part<br>2, 如果类型是RequestBody，那么该值将直接与其内容类型一起使用。 在注释中提供part名称（例如，@Part（“foo”）RequestBody foo）。<br>3, 其他对象类型将通过使用转换器转换为适当的格式。 在注释中提供part名称（例如，@Part（“foo”）Image photo）。</li>
+</ul>
+<hr>
+<h5 id="2-4-PartMap注解"><a href="#2-4-PartMap注解" class="headerlink" title="2.4 PartMap注解:"></a>2.4 PartMap注解:</h5><ul>
+<li>作用于方法的参数,以map的方式定义Multipart请求的每个part</li>
+<li>map中每一项的键和值都不能为空,否则抛出IllegalArgumentException异常</li>
+<li>使用该注解定义的参数类型有以下2种方式可选:<br>1, 如果类型是RequestBody，那么该值将直接与其内容类型一起使用。<br>2, 其他对象类型将通过使用转换器转换为适当的格式。</li>
+</ul>
+<hr>
+<h5 id="2-5-OPTIONS注解"><a href="#2-5-OPTIONS注解" class="headerlink" title="2.5 OPTIONS注解:"></a>2.5 OPTIONS注解:</h5><ul>
+<li>用于发送一个OPTIONS请求</li>
+<li>OPTIONS注解一般必须添加相对路径或绝对路径或者全路径,如果不想在OPTIONS注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="2-6-PATCH注解"><a href="#2-6-PATCH注解" class="headerlink" title="2.6 PATCH注解:"></a>2.6 PATCH注解:</h5><ul>
+<li>用于发送一个PATCH请求</li>
+<li>PATCH注解一般必须添加相对路径或绝对路径或者全路径,如果不想在PATCH注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="2-7-Path注解"><a href="#2-7-Path注解" class="headerlink" title="2.7 Path注解:"></a>2.7 Path注解:</h5><ul>
+<li>作用于方法的参数</li>
+<li>在URL路径段中替换指定的参数值。使用String.valueOf()和URL编码将值转换为字符串。</li>
+<li>使用该注解定义的参数的值不可为空</li>
+<li>参数值默认使用URL编码</li>
+</ul>
+<hr>
+<h5 id="2-8-POST注解"><a href="#2-8-POST注解" class="headerlink" title="2.8 POST注解:"></a>2.8 POST注解:</h5><ul>
+<li>用于发送一个POST请求</li>
+<li>POST注解一般必须添加相对路径或绝对路径或者全路径,如果不想在POST注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="2-9-PUT注解"><a href="#2-9-PUT注解" class="headerlink" title="2.9 PUT注解:"></a>2.9 PUT注解:</h5><ul>
+<li>用于发送一个PUT请求</li>
+<li>PUT注解一般必须添加相对路径或绝对路径或者全路径,如果不想在PUT注解后添加请求路径,则可以在方法的第一个参数中用@Url注解添加请求路径</li>
+</ul>
+<hr>
+<h5 id="3-0-Query注解"><a href="#3-0-Query注解" class="headerlink" title="3.0 Query注解:"></a>3.0 Query注解:</h5><ul>
+<li>作用于方法的参数</li>
+<li>用于添加查询参数,即请求参数</li>
+<li>参数值通过String.valueOf()转换为String并进行URL编码</li>
+<li>使用该注解定义的参数,参数值可以为空,为空时,忽略该值,当传入一个List或array时,为每个非空item拼接请求键值对,所有的键是统一的,如: name=张三&amp;name=李四&amp;name=王五.</li>
+</ul>
+<hr>
+<h5 id="3-1-QueryMap注解"><a href="#3-1-QueryMap注解" class="headerlink" title="3.1 QueryMap注解:"></a>3.1 QueryMap注解:</h5><ul>
+<li>作用于方法的参数</li>
+<li>以map的形式添加查询参数,即请求参数</li>
+<li>参数的键和值都通过String.valueOf()转换为String格式</li>
+<li>map的键和值默认进行URL编码</li>
+<li>map中每一项的键和值都不能为空,否则抛出IllegalArgumentException异常</li>
+</ul>
+<hr>
+<h5 id="3-2-Streaming注解"><a href="#3-2-Streaming注解" class="headerlink" title="3.2 Streaming注解:"></a>3.2 Streaming注解:</h5><ul>
+<li>作用于方法</li>
+<li>处理返回Response的方法的响应体，即没有将body（）转换为byte []。</li>
+</ul>
+<hr>
+<h5 id="3-3-Url注解"><a href="#3-3-Url注解" class="headerlink" title="3.3 Url注解:"></a>3.3 Url注解:</h5><ul>
+<li>作用于方法参数</li>
+<li>用于添加请求的接口地址</li>
+</ul>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Chen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://nomadjoe1122.github.io/2021/10/04/Retrofit%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">https://nomadjoe1122.github.io/2021/10/04/Retrofit%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://NomadJOE1122.github.io" target="_blank">Like a gust of wind</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Android%E5%BC%80%E5%8F%91/">Android开发</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/wallhaven-nzwl5j.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/09/29/OKhttp%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OKhttp网络框架实现</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/29/OKhttp%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0/" title="OKhttp网络框架实现"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-29</div><div class="title">OKhttp网络框架实现</div></div></a></div><div><a href="/2021/09/21/ViewPager%E5%AE%9E%E7%8E%B0%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C/" title="ViewPager实现滑动效果"><img class="cover" src="/img/wallhaven-zxgv5o.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-21</div><div class="title">ViewPager实现滑动效果</div></div></a></div><div><a href="/2021/09/26/%E5%90%91AS%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%9C%AC%E5%9C%B0-jar%E5%8C%85%E5%92%8C%E5%BA%93/" title="向AS导入第三方本地.jar包和库"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-26</div><div class="title">向AS导入第三方本地.jar包和库</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrofit%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C%F0%9F%98%B8"><span class="toc-number">1.</span> <span class="toc-text">Retrofit使用手册😸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Retrofit简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">Retrofit基础使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="toc-number">1.2.1.</span> <span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="toc-number">1.2.2.</span> <span class="toc-text">第二步</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit%E4%B8%AD%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.</span> <span class="toc-text">Retrofit中的注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E5%90%84%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%90%AB%E4%B9%89%E5%A6%82%E4%B8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">各各注解的含义如下</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-Body%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">1.1 Body注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-DELETE%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">1.2 DELETE注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-Field%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">1.3 Field注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-FieldMap%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">1.4 FieldMap注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-FormUrlEncoded%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.5.</span> <span class="toc-text">1.5 FormUrlEncoded注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-GET%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.6.</span> <span class="toc-text">1.6 GET注解</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-7-HEAD%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.7.</span> <span class="toc-text">1.7 HEAD注解</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-8-Header%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.8.</span> <span class="toc-text">1.8 Header注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-9-HeaderMap%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.9.</span> <span class="toc-text">1.9 HeaderMap注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-0-Headers%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.10.</span> <span class="toc-text">2.0 Headers注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-HTTP%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.11.</span> <span class="toc-text">2.1 HTTP注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-Multipart%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.12.</span> <span class="toc-text">2.2 Multipart注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-Part%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.13.</span> <span class="toc-text">2.3 Part注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-PartMap%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.14.</span> <span class="toc-text">2.4 PartMap注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-5-OPTIONS%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.15.</span> <span class="toc-text">2.5 OPTIONS注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-6-PATCH%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.16.</span> <span class="toc-text">2.6 PATCH注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-7-Path%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.17.</span> <span class="toc-text">2.7 Path注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-POST%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.18.</span> <span class="toc-text">2.8 POST注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-9-PUT%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.19.</span> <span class="toc-text">2.9 PUT注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-0-Query%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.20.</span> <span class="toc-text">3.0 Query注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-QueryMap%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.21.</span> <span class="toc-text">3.1 QueryMap注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-Streaming%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.22.</span> <span class="toc-text">3.2 Streaming注解:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-Url%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.3.1.23.</span> <span class="toc-text">3.3 Url注解:</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/NomadJOE1122/img/img/wallhaven-nzwl5j.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 By Chen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Thank you for reading my webblog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'qpeqOKpEKNAXdA2hqTCJbznK-gzGzoHsz',
+      appKey: 'efgxpYuaClUA9QWRBMsAQdtw',
+      placeholder: '记得留下你的昵称和邮箱喔...可以更快收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+      requiredFields: ["nick"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
